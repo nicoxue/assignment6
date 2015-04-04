@@ -10,7 +10,7 @@ import javax.json.JsonObject;
 
 /**
  *
- * @author xuejie87
+ * @author c0640916
  */
 public class Product {
     private int productId;
@@ -75,5 +75,8 @@ public class Product {
         this.quantity = quantity;
     }
     
+    public String toString(){
+        return "productId" + productId + "name" + name + "description" + description + "quantity" + quantity; 
+    }
     
 }
