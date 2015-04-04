@@ -83,6 +83,34 @@ public class ProductList {
         }
     }
 
+    public void remove(Product p) throws Exception {
+        remove(p.getProductId());
+    }
+
+    public void remove(int productId) throws Exception {
+        int result = doUpdate("DELETE FROM Product WHERE ProductID = ?",
+                String.valueOf(productId));
+        if (result > 0) {
+            Product o = get(productId);
+            productList.remove(o);
+        } else {
+            throw new Exception("Delete failed");
+        }
+    }
+
+    public void add(Product p) throws Exception {
+        int result = doUpdate("INSERT INTO  Product (ProductID, Name, Description, Quantity) VALUES (?,?,?,?)",
+                String.valueOf(p.getProductId()),
+                p.getName(),
+                p.getDescription(),
+                String.valueOf(p.getQuantity()));
+        if (result > 0) {
+            productList.add(p);
+        } else {
+            throw new Exception("Error Inserting");
+        }
+    }
+
     private Connection getConnection() {
         Connection conn = null;
         try {

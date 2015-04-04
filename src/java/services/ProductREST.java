@@ -48,8 +48,15 @@ public class ProductREST {
 
     @POST
     @Consumes("application/json")
-    public Response add(JsonObject Json) {
-        return null;
+    public Response add(JsonObject json) {
+        Response r;
+        try {
+            productList.add(new Product(json));
+            r =  Response.ok().build();
+        } catch (Exception ex) {
+            r =  Response.status(500).build();
+        }
+        return r;
     }
 
     @PUT
@@ -68,6 +75,12 @@ public class ProductREST {
     @DELETE
     @Path("{id}")
     public Response delete(@PathParam("id") int id) {
-        return null;
+        try {
+            productList.remove(id);
+            return Response.ok().build();
+        }
+        catch(Exception ex){
+            return Response.status(500).build();
+        }
     }
 }
