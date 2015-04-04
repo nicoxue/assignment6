@@ -28,7 +28,7 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Product(JsonObject json ){
+    public Product(JsonObject json){
         productId = json.getInt("productId");
         name = json.getString("name");
         description = json.getString("description");

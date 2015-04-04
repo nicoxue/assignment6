@@ -55,6 +55,34 @@ public class ProductList {
         return json.build();
     }
 
+    public Product get(int productId) {
+        Product result = null;
+        for (int i = 0; i < productList.size() && result == null; i++) {
+            Product p = productList.get(i);
+            if (p.getProductId() == productId) {
+                return p;
+            }
+        }
+        return result;
+    }
+
+    public void set(int productId, Product product) throws Exception {
+        int result = doUpdate("UPDATE Product SET NAME = ?,DESCRITION=?,QUANTITY=? WHERE ProductID = ?",
+                product.getName(),
+                product.getDescription(),
+                String.valueOf(product.getQuantity()),
+                String.valueOf(productId)
+        );
+        if (result == 1) {
+            Product o = get(productId);
+            o.setName(product.getName());
+            o.setDescription(product.getDescription());
+            o.setQuantity(product.getQuantity());
+        } else {
+            throw new Exception("Error with Update");
+        }
+    }
+
     private Connection getConnection() {
         Connection conn = null;
         try {
